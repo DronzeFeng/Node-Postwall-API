@@ -1,33 +1,30 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
-const postController = require("../controllers/posts");
-const handleErrorAsync = require("../services/handleErrorAsync");
-const { isAuth } = require("../services/isAuth");
+const postController = require('../controllers/posts');
+const handleErrorAsync = require('../services/handleErrorAsync');
+const { isAuth } = require('../services/isAuth');
 
-router.get(
-  "/",
-  handleErrorAsync(isAuth),
-  handleErrorAsync(postController.getPosts)
-);
+router.get('/', handleErrorAsync(postController.getPosts));
+router.get('/:id', handleErrorAsync(postController.getOnePost));
 router.post(
-  "/",
+  '/',
   handleErrorAsync(isAuth),
   handleErrorAsync(postController.createPost)
 );
-router.delete(
-  "/",
+router.post(
+  '/:id/like',
   handleErrorAsync(isAuth),
-  handleErrorAsync(postController.deleteAllPosts)
+  handleErrorAsync(postController.likePost)
 );
 router.delete(
-  "/:id",
+  '/:id/unlike',
   handleErrorAsync(isAuth),
-  handleErrorAsync(postController.deleteOnePost)
+  handleErrorAsync(postController.dislikePost)
 );
-router.patch(
-  "/:id",
+router.post(
+  '/:id/comment',
   handleErrorAsync(isAuth),
-  handleErrorAsync(postController.patchOnePost)
+  handleErrorAsync(postController.commentPost)
 );
 
 module.exports = router;

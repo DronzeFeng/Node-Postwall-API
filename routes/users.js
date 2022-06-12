@@ -21,5 +21,25 @@ router.patch(
   handleErrorAsync(isAuth),
   handleErrorAsync(userController.patchProfile)
 );
+router.get(
+  '/getLikeList',
+  handleErrorAsync(isAuth),
+  handleErrorAsync(userController.getLikeList)
+);
+router.get(
+  '/following',
+  handleErrorAsync(isAuth),
+  handleErrorAsync(userController.getFollowing)
+);
+router.post(
+  '/:id/follow',
+  handleErrorAsync(isAuth),
+  handleErrorAsync(userController.addFollow)
+);
+router.delete(
+  '/:id/unfollow',
+  handleErrorAsync(isAuth),
+  handleErrorAsync(userController.delFollow)
+);
 
 module.exports = router;

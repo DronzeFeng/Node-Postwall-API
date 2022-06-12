@@ -1,12 +1,12 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "請輸入您的名字"],
+    required: [true, '請輸入您的名字'],
   },
   email: {
     type: String,
-    required: [true, "請輸入您的 Email"],
+    required: [true, '請輸入您的 Email'],
     unique: true,
     lowercase: true,
     select: false,
@@ -14,11 +14,11 @@ const userSchema = new mongoose.Schema({
   photo: String,
   sex: {
     type: String,
-    enum: ["male", "female"],
+    enum: ['male', 'female'],
   },
   password: {
     type: String,
-    required: [true, "請輸入密碼"],
+    required: [true, '請輸入密碼'],
     minlength: 8,
     select: false,
   },
@@ -27,8 +27,27 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
     select: false,
   },
+  followers: [
+    {
+      user: { type: mongoose.Schema.ObjectId, ref: 'User' },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+  following: [
+    {
+      user: { type: mongoose.Schema.ObjectId, ref: 'User' },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
 });
+
 // 當寫入mongodb時，會強制轉小寫，字尾強制加上 s
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
