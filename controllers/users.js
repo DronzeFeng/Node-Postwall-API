@@ -26,7 +26,7 @@ const users = {
     if (!validator.isEmail(email)) {
       return next(errorHandle('400', 'Email 格式不正確', next));
     }
-    if (checkEmail) {
+    if (checkEmail[0]) {
       return next(
         errorHandle('400', 'Email 已被註冊，請使用其他 Email註冊', next)
       );
